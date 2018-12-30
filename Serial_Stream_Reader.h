@@ -4,14 +4,11 @@ information over serial communication and resolve
 integers and double precision numbers to their proper
 data types. The intention of this file is for use in
 a larger project where GPS coordinates would be sent
-from a stationary PC to a remote autonmous vehicle.
+from a stationary PC to a remote autonomous vehicle.
 
 Anybody attempting to use these class files should
-review the test stored in this location.
-
-
+review the test data stored in this location.
 ****************************************************/
-
 
 
 #ifndef SERIAL_STREAM_READER
@@ -20,13 +17,12 @@ review the test stored in this location.
 #include "Arduino.h"
 using namespace std;
 
-
 class Serial_Stream_Reader
 {
 private:
  
 	// Numbers containing more than 9 characters
-  // Become less accurate on unreliable.
+	// Become less accurate on unreliable.
 	const static uint8_t BUFFER_SIZE = 10;
 	
 	// The char buffer is only used for parsing
@@ -44,7 +40,6 @@ private:
 	bool _is_string;
 
 	// Private Helper Functions
-	void clear_buffer();
 	void resolve();
 	void parse_int();
 	void parse_double();
@@ -52,6 +47,16 @@ private:
  
 public:
 
+	/*
+	 *	Process flow:
+	 *		1: New byte is added into the buffer with add_byte(char)
+	 *		2: Immediately afterwards check to see if the data is ready with ready()
+	 *		3: If new data is ready, check the data type with is_string(), is_double(), and is_int()
+	 *		4: Read the data appropriate data type with get_string(), get_double(), or get_int().
+	 *		5: Reading the information with any of the accessors will clear the buffer.
+	 *		6: In the event of a timeout error, one could call clear_buffer()
+	 */
+	 
 	//Constructor
 	Serial_Stream_Reader();
 	
@@ -90,6 +95,7 @@ public:
 	String get_string();
 	double get_double();
 	int32_t get_int();
+	void clear_buffer();
 
 };
 #endif 
