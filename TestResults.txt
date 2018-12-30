@@ -1,0 +1,105 @@
+/******************************************************
+ * Test Bench: Arduino Mega 2650, XBee-PRO 900 XBP09-DP
+ ******************************************************/
+
+Tests were completed using the console input from XCTU which is the XBee
+interface application used for sending messages overrun an XBee network.
+For more information, see: https://www.digi.com/products/xbee-rf-solutions/xctu-software/xctu
+
+Other observed behavior: When sending a large amount of data over an XBEE network, there are likely to 
+be buffer overruns causing the output to be unpredictable. This is a hardware resource issue, not an issue
+with the code. Anybody using the the files associated with these files should do further testing make sure
+the hardware and software meet their design needs. The use case for these files would be for manual data 
+input from a PC to an electronic device. Using an XBee for hardware to hardware communication can prove
+to be problematic and unreliable  if communication flow isn't managed properly.
+
+Since the output results are coming from Arduino serial monitor, numbers beyond 2 significant figures beyond
+the decimal were not observable. Further testing should be done to test the accuracy of the output for
+digits beyond 2 significant figures past the decimal.
+
+
+
+Input: 9.9999999 		Output: Completed in: 16 us, Is Double: 10.00
+Input: 9.999999 		Output: Completed in: 20 us, Is Double: 10.00
+Input: 9.99999 			Output: Completed in: 20 us, Is Double: 10.00
+Input: 9.9999 			Output: Completed in: 20 us, Is Double: 10.00
+Input: 9.999 			Output: Completed in: 20 us, Is Double: 10.00
+Input: 9.99 			Output: Completed in: 20 us, Is Double: 9.99
+Input: 9.9	 			Output: Completed in: 24 us, Is Double: 9.90
+Input: 9.0 				Output: Completed in: 20 us, Is Double: 9.00
+Input: 0.9 				Output: Completed in: 20 us, Is Double: 0.90
+Input: 0.99 			Output: Completed in: 20 us, Is Double: 0.99
+Input: 0.999 			Output: Completed in: 16 us, Is Double: 1.00
+Input: 0.9999 			Output: Completed in: 20 us, Is Double: 1.00
+
+
+Input: 9 				Output: Completed in: 20 us, Is Int: 9
+Input: 99 				Output: Completed in: 20 us, Is Int: 99
+Input: 999 				Output: Completed in: 16 us, Is Int: 999
+Input: 9999 			Output: Completed in: 16 us, Is Int: 9999
+Input: 99999 			Output: Completed in: 20 us, Is Int: 99999
+Input: 999999 			Output: Completed in: 16 us, Is Int: 999999
+Input: 9999999 			Output: Completed in: 16 us, Is Int: 9999999
+Input: 99999999 		Output: Completed in: 16 us, Is Int: 99999855 *** Caution, accuracy  issues arise when working with numbers beyond 24 bits  ***
+Input: 999999999 		Output: Completed in: 16 us, Is Int: 1410061519 *** Danger ***
+
+
+Input: 1.01 			Output: Completed in: 20 us, Is Double: 1.01
+Input: 1.1 				Output: Completed in: 20 us, Is Double: 1.10
+Input: 1.01 			Output: Completed in: 16 us, Is Double: 1.01
+Input: 10.01 			Output: Completed in: 16 us, Is Double: 10.01
+Input: 100.01 			Output: Completed in: 20 us, Is Double: 100.01
+Input: 1000.01 			Output: Completed in: 16 us, Is Double: 1000.01
+Input: 10000.01 		Output: Completed in: 16 us, Is Double: 10000.01
+Input: 100000.01 		Output: Completed in: 20 us, Is Double: 100000.01
+Input: 1000000.01 		Output: Completed in: 20 us, Is Double: 1000000.00  *** Loosing Accuracy ***
+Input: 10000000.01 		Output: Completed in: 64 us, Is String: 10000000.01  *** Overruns Char Buffer so a string is implied ***
+Input: 100000000.01 	Output: Completed in: 64 us, Is String: 100000000.01
+Input: 1000000000.01 	Output: Completed in: 64 us, Is String: 1000000000.01
+Input: 10000000000.01 	Output: Completed in: 64 us, Is String: 10000000000.01
+
+
+
+Input: 1. 				Output: Completed in: 20 us, Is Double: 1.00
+Input: 1.1 				Output: Completed in: 20 us, Is Double: 1.10
+Input: 10.1 			Output: Completed in: 16 us, Is Double: 10.10
+Input: 100.1 			Output: Completed in: 16 us, Is Double: 100.10
+Input: 1000.1 			Output: Completed in: 16 us, Is Double: 1000.10
+Input: 10000.1 			Output: Completed in: 20 us, Is Double: 10000.10
+Input: 100000.1 		Output: Completed in: 16 us, Is Double: 100000.10
+Input: 1000000.1 		Output: Completed in: 20 us, Is Double: 1000000.12
+Input: 10000000.1 		Output: Completed in: 16 us, Is Double: 9999984.00
+Input: 100000000.1 		Output: Completed in: 64 us, Is String: 100000000.1
+Input: 99999999.1 		Output: Completed in: 20 us, Is Double: 99999856.00
+
+
+
+Input: -1 				Output: Completed in: 20 us, Is Int: -1
+Input: -2 				Output: Completed in: 20 us, Is Int: -2
+Input: -3 				Output: Completed in: 16 us, Is Int: -3
+Input: -10 				Output: Completed in: 20 us, Is Int: -10
+Input: -100 			Output: Completed in: 20 us, Is Int: -100
+Input: -1000 			Output: Completed in: 16 us, Is Int: -1000
+Input: -10000 			Output: Completed in: 20 us, Is Int: -10000
+Input: -100000 			Output: Completed in: 16 us, Is Int: -100000
+Input: -1.				Output: Completed in: 20 us, Is Double: -1.00
+Input: -1.1 			Output: Completed in: 20 us, Is Double: -1.10
+Input: -1.11			Output: Completed in: 20 us, Is Double: -1.11
+Input: -11.11 			Output: Completed in: 16 us, Is Double: -11.11
+Input: -111.11 			Output: Completed in: 16 us, Is Double: -111.11
+Input: -1111.11 		Output: Completed in: 24 us, Is Double: -1111.11
+Input: -11111.11 		Output: Completed in: 16 us, Is Double: -11111.11
+Input: -111111.11 		Output: Completed in: 20 us, Is Double: -111111.11
+input: -11111111.1		Output: Completed in: 72 us, Is String: -11111111.1 *** Buffer overrun resolves to a string.
+
+
+
+Input: 16777215 		Output: Completed in: 20 us, Is Int: 16777199 *** 16777215 	= 0xFF FFFF = 1111 1111  1111 1111 1111 1111
+Input: 8388607			Output: Completed in: 20 us, Is Int: 8388607  *** 8388607 	= 0x7F FFFF = 0111 1111  1111 1111 1111 1111
+
+Input: -2.38% 				Output: Completed in: 60 us, Is String: -2.38%
+Input: d2ds.88				Output: Completed in: 60 us, Is String: d2ds.88
+Input: 0x123 				Output: Completed in: 60 us, Is String: 0x123
+Input: 200.00.2				Output: Completed in: 64 us, Is String: 200.00.2
+Input: Hello World! 		Output: Completed in: 64 us, Is String: Hello World!
+Input: This is a really long string that should overrun the char buffer 				Output: Completed in: 80 us, Is String: This is a really long string that should overrun the char buffer
